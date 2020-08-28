@@ -22,6 +22,30 @@ const mockHist = [
     valor: "-15,60",
     id: "3",
   },
+  {
+    data: "02/03/2020",
+    desc: "Almoço",
+    valor: "-15,60",
+    id: "4",
+  },
+  {
+    data: "02/03/2020",
+    desc: "Almoço",
+    valor: "-15,60",
+    id: "5",
+  },
+  {
+    data: "02/03/2020",
+    desc: "Almoço",
+    valor: "-15,60",
+    id: "6",
+  },
+  {
+    data: "02/03/2020",
+    desc: "Almoço U",
+    valor: "-15,60",
+    id: "7",
+  },
 ];
 
 const HistoricoBg = styled.View`
@@ -38,8 +62,8 @@ function Historico(props) {
       <HistoricoBg>
         <FlatList
           contentContainerStyle={{
-            paddingBottom: 500,
-            marginRight: "10%",
+            paddingBottom: 440,
+            marginRight: "2%",
             marginTop: 15,
           }}
           data={mockHist}

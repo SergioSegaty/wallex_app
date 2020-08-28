@@ -6,7 +6,6 @@ const SaldoBox = styled.View`
   width: 100%;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 20px;
 `;
 
 const ValorSaldo = styled.Text`

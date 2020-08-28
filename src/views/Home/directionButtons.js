@@ -3,66 +3,77 @@ import { Text, View } from "react-native";
 import styled from "styled-components";
 
 const BtnExtrato = styled.TouchableHighlight`
-  background-color: green;
-  width: 23%;
   height: 100px;
+  width: 45%;
   border-radius: 6px;
-  elevation: 10;
+  border-color: #95c285;
+  border-width: 2px;
+  padding: 0px 10px;
 `;
 
 const BtnTransf = styled.TouchableHighlight`
-  background-color: green;
-  width: 23%;
   height: 100px;
+  width: 45%;
   border-radius: 6px;
-  elevation: 10;
+  border-color: #95c285;
+  border-width: 2px;
+  padding: 0px 10px;
 `;
 
 const BtnPagamento = styled.TouchableHighlight`
-  background-color: green;
-  width: 23%;
   height: 100px;
+  width: 45%;
   border-radius: 6px;
-  elevation: 10;
+  border-color: #95c285;
+  border-width: 2px;
+  padding: 0px 10px;
 `;
 
 const BtnBox = styled.View`
-  height: 100%;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const MainContainer = styled.View`
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  align-items: center;
   margin-top: 15px;
-  margin-bottom: 15px;
   margin-right: 10px;
   margin-left: 5px;
 `;
 
+const BtnText = styled.Text`
+  color: #95c285;
+  font-size: 23px;
+`;
+
 function DirectionButtons() {
   return (
-    <MainContainer>
-      <BtnExtrato>
-        <BtnBox>
-          <Text>Extrato</Text>
-        </BtnBox>
-      </BtnExtrato>
+    <View style={{paddingBottom: 100}}>
+      <MainContainer>
+        <BtnExtrato>
+          <BtnBox>
+            <BtnText>Extrato</BtnText>
+          </BtnBox>
+        </BtnExtrato>
 
-    <BtnPagamento>
-        <BtnBox>
-            <Text>Pagamento</Text>
-        </BtnBox>
-    </BtnPagamento>
+        <BtnPagamento>
+          <BtnBox>
+            <BtnText>Pagamento</BtnText>
+          </BtnBox>
+        </BtnPagamento>
+      </MainContainer>
 
-    <BtnTransf>
-        <BtnBox>
-            <Text>Transferencia</Text>
-        </BtnBox>
-    </BtnTransf>
-
-    </MainContainer>
+      <MainContainer>
+        <BtnTransf>
+          <BtnBox>
+            <BtnText>Transferencia</BtnText>
+          </BtnBox>
+        </BtnTransf>
+      </MainContainer>
+    </View>
   );
 }
 
