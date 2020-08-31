@@ -6,6 +6,8 @@ import Saldo from "../../components/saldo";
 import ContactCarousel from "./contactCarousel";
 import styled from "styled-components";
 import DirectionButtons from "./directionButtons";
+import { connect } from "react-redux";
+
 
 const UnderLine = styled.View`
   border-color: rgba(56, 103, 223, 0.5);
@@ -15,7 +17,7 @@ const UnderLine = styled.View`
   margin: 5px;
 `;
 
-function Home() {
+function Home(props) {
   return (
     <View>
       <Header />
@@ -24,11 +26,19 @@ function Home() {
         <CardCarousel />
         <Saldo />
         <UnderLine />
-        <ContactCarousel />
-        <DirectionButtons />
+        <ContactCarousel contatos={props.user.contatos} onPressCallback={(nome) => props.navigation.navigate('Perfil')}/>
+        <DirectionButtons onPressCallback={(route) => props.navigation.navigate(route)}/>
       </ScrollView>
     </View>
   );
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return{
+    user: state.transacao.user
+  }
+}
+
+export default connect(mapStateToProps)(Home);
+
+

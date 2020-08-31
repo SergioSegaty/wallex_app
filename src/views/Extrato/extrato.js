@@ -21,7 +21,7 @@ const Separator = styled.View`
   margin-bottom: 55px;
 `;
 
-function Extrato() {
+function Extrato(props) {
   return (
     <>
       <StyledBG>

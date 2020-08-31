@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const SaldoBox = styled.View`
   width: 100%;
@@ -15,19 +16,25 @@ const ValorSaldo = styled.Text`
 `;
 
 const TextSaldo = styled.Text`
-  color: #5E98DD;
+  color: #5e98dd;
   font-size: 25px;
   font-weight: 700;
   margin-bottom: 10px;
 `;
 
-function Saldo() {
+function Saldo(props) {
   return (
     <SaldoBox>
       <TextSaldo>Saldo</TextSaldo>
-      <ValorSaldo>R$ 12.740,91</ValorSaldo>
+      <ValorSaldo>R$ {props.saldo}</ValorSaldo>
     </SaldoBox>
   );
 }
 
-export default Saldo;
+const mapStateToProps = (state) => {
+  return {
+    saldo: state.transacao.user.saldo
+  };
+};
+
+export default connect(mapStateToProps)(Saldo);

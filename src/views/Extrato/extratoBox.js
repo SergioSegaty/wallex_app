@@ -2,37 +2,7 @@ import React, { Component } from "react";
 import { Text, View, ScrollView, FlatList } from "react-native";
 import styled from "styled-components";
 import ExtratoItem from "./extratoItem";
-
-const mockData = [
-  {
-    title: "Mc Donalds",
-    documento: "717213913",
-    valor: "-15,60",
-    data: "22/08/2020",
-    id: "1",
-  },
-  {
-    title: "Burger King",
-    documento: "817290237",
-    valor: "-23,40",
-    data: "12/08/2020",
-    id: "2",
-  },
-  {
-    title: "Riachuello",
-    documento: "171294123",
-    valor: "-73,50",
-    data: "11/08/2020",
-    id: "3",
-  },
-  {
-    title: "Emporio da Saúde",
-    documento: "9971761263",
-    valor: "-60,40",
-    data: "19/07/2020",
-    id: "4",
-  },
-];
+import { connect } from "react-redux";
 
 const MainContainer = styled.View`
   width: 100%;
@@ -70,7 +40,13 @@ const ExtratosContainer = styled.View`
   padding-right: 10px;
 `;
 
-function ExtratoBox() {
+const renderExtratoItens = ({item}) =>{
+ return (
+  <ExtratoItem item={item} />
+ )
+}
+
+function ExtratoBox(props) {
   return (
     <MainContainer>
       <Title>Extrato</Title>
@@ -83,8 +59,8 @@ function ExtratoBox() {
             marginRight: "10%",
             marginTop: 15,
           }}
-          data={mockData}
-          renderItem={({ item }) => <ExtratoItem item={item} />}
+          data={props.extrato}
+          renderItem={renderExtratoItens}
           keyExtractor={(item) => item.id}
         />
       </View>
@@ -92,4 +68,10 @@ function ExtratoBox() {
   );
 }
 
-export default ExtratoBox;
+const mapStateToProps = (state) => {
+  return {
+    extrato: state.transacao.user.extrato,
+  };
+};
+
+export default connect(mapStateToProps)(ExtratoBox);

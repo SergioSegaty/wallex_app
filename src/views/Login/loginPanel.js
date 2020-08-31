@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
 
@@ -22,16 +22,17 @@ const LoginInput = styled.TextInput`
 const LoginBox = styled.View`
   width: 90%;
   height: 400px;
-  background-color: #95c285;
   flex-direction: column;
   align-items: center;
   border-radius: 12px;
+  border-color: white;
+  border-width: 2px;
 `;
 
 const BtnLogin = styled.TouchableHighlight`
   width: 35%;
   height: 55px;
-  margin-top: 10px;
+  margin-top: 40px;
   border-width: 2px;
   border-color: white;
   border-radius: 6px;
@@ -45,18 +46,29 @@ const BtnText = styled.Text`
   color: white;
 `;
 
-function LoginPanel() {
+function LoginPanel(props) {
+const [login, setLogin] = useState('');
+const [senha, setSenha] = useState('');
+
   return (
     <View style={{ alignItems: "center" }}>
       <LoginBox>
         <LoginLabel>Login</LoginLabel>
-        <LoginInput></LoginInput>
+        <LoginInput
+          onChangeText={text => setLogin(text)}
+          value={login}
+        />
 
         <LoginLabel>Senha</LoginLabel>
-        <LoginInput></LoginInput>
+        <LoginInput
+          onChangeText={text => setSenha(text)}
+          value={senha}
+        />
 
         <View style={{ marginTop: 20 }}>
-          <BtnLogin color="#58cc4d">
+          <BtnLogin color="#58cc4d"
+          underlayColor='rgba(255,255,255,0.3)'
+          onPress={() => props.onLoginCallback({login: login, senha: senha})}>
             <BtnText>Entrar</BtnText>
           </BtnLogin>
         </View>

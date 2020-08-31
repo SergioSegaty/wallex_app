@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const BloqueioBox = styled.View`
   width: 100%;
@@ -16,19 +17,25 @@ const ValorBloqueio = styled.Text`
 `;
 
 const TextBloqueio = styled.Text`
-  color: #5E98DD;
+  color: #5e98dd;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
 `;
 
-function Bloqueio() {
+function Bloqueio(props) {
   return (
     <BloqueioBox>
       <TextBloqueio>Bloqueado</TextBloqueio>
-      <ValorBloqueio>R$ 740,91</ValorBloqueio>
+      <ValorBloqueio>R$ {props.bloqueado}</ValorBloqueio>
     </BloqueioBox>
   );
 }
 
-export default Bloqueio;
+const mapStateToProps = (state) => {
+  return {
+    bloqueado: state.transacao.user.bloqueado
+  }
+}
+
+export default connect(mapStateToProps)(Bloqueio);

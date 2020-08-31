@@ -17,12 +17,14 @@ const Title = styled.Text`
   font-size: 30px;
   font-weight: bold;
   margin-top: 10%;
+  color: white;
 `;
 
 const StyledLabel = styled.Text`
   font-size: 17px;
   font-weight: 700;
   margin-left: 15px;
+  color: white;
 `;
 
 const Btn = styled.TouchableHighlight`
@@ -46,6 +48,7 @@ const InputCodigo = styled.TextInput`
 const BtnText = styled.Text`
   font-size: 20px;
   font-weight: bold;
+  color: white;
 `;
 
 const BtnFinalizar = styled.TouchableHighlight`
@@ -68,7 +71,7 @@ const ButtonContainer = styled.View`
   width: 100%;
 `;
 
-export default function Pagamento() {
+export default function Pagamento(props) {
   return (
     <PagamentoBackground>
       <Title>Pagamento de Contas</Title>
@@ -76,7 +79,7 @@ export default function Pagamento() {
         <Btn>
           <View style={{ alignItems: "center" }}>
             <BtnText>Ler código de barras</BtnText>
-            <FontAwesomeIcon icon={faCamera} size={35} />
+            <FontAwesomeIcon icon={faCamera} size={35} style={{marginTop: 10}} />
           </View>
         </Btn>
         <Btn>
@@ -86,7 +89,10 @@ export default function Pagamento() {
           </View>
         </Btn>
       </View>
-      <BtnFinalizar>
+      <BtnFinalizar
+        underlayColor='rgba(255,255,255,0.4)'
+        onPress={() => props.navigation.navigate('Finalizado')}
+      >
         <BtnText>Finalizar</BtnText>
       </BtnFinalizar>
     </PagamentoBackground>

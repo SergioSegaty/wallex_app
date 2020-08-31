@@ -33,16 +33,16 @@ const Valor = styled.Text`
   font-size: 20px;
 `;
 
-function ExtratoItem(props) {
+function ExtratoItem({item}) {
   return (
     <ExtratoI>
       <SubContainer>
-        <Title>{props.item.title}</Title>
-        <Documento>Documento: {props.item.documento}</Documento>
+        <Title>{item.title}</Title>
+        <Documento>Documento: {item.documento}</Documento>
       </SubContainer>
       <SubContainer style={{marginRight: 10}}>
-        <Valor>{props.item.valor}</Valor>
-        <Data>{props.item.data}</Data>
+        <Valor>{item.valor}</Valor>
+        <Data>{item.data}</Data>
       </SubContainer>
     </ExtratoI>
   );

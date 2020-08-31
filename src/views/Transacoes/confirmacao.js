@@ -12,24 +12,31 @@ const transacao = {
   hora: "11:32:55",
 };
 
+const BG = styled.View`
+  background-color: #95c285;
+  height: 100%;
+`;
+
 const ConfBackground = styled.View`
-  background-color: #a0cdd0;
   width: 94%;
   align-self: center;
   border-radius: 6px;
   align-items: flex-start;
-  margin-top: 20%;
-  elevation: 10;
+  margin-top: 30%;
   padding: 15px;
+  border-width: 2px;
+  border-color: white;
 `;
 
 const StyledOutput = styled.Text`
   margin-left: 5px;
   font-size: 17px;
   font-weight: bold;
+  color: black;
 `;
 
 const StyledLabel = styled.Text`
+  color: white;
   margin-left: 10px;
   font-size: 17px;
   margin-bottom: 10px;
@@ -38,25 +45,26 @@ const StyledLabel = styled.Text`
 const BtnCancelar = styled.TouchableHighlight`
   height: 70px;
   width: 100px;
-  background-color: #be1515;
   border-radius: 20px;
   align-items: center;
   justify-content: center;
-  elevation: 5;
+  border-width: 2px;
+  border-color: white;
 `;
 const BtnFinalizar = styled.TouchableHighlight`
   height: 70px;
   width: 100px;
-  background-color: #a0cdd0;
   border-radius: 20px;
   align-items: center;
   justify-content: center;
-  elevation: 5;
+  border-width: 2px;
+  border-color: white;
 `;
 
 const BtnText = styled.Text`
   font-size: 20px;
   font-weight: bold;
+  color: white;
 `;
 
 const ButtonContainer = styled.View`
@@ -72,14 +80,16 @@ const Title = styled.Text`
   align-self: center;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 30%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: white;
 `;
 
 export default function Confirmacao(props) {
   return (
-    <View>
-      <Title> Confirmação </Title>
+    <BG>
       <ConfBackground>
+        <Title> Confirmação </Title>
         <StyledLabel>
           Nome: <StyledOutput>{transacao.nomeFavorecido} </StyledOutput>{" "}
         </StyledLabel>
@@ -101,15 +111,21 @@ export default function Confirmacao(props) {
             {transacao.data} - {transacao.hora}
           </StyledOutput>
         </StyledLabel>
+        <ButtonContainer>
+          <BtnCancelar
+            underlayColor="rgba(255,255,255,0.4)"
+            onPress={() => props.navigation.navigate("Transacao")}
+          >
+            <BtnText> Cancelar </BtnText>
+          </BtnCancelar>
+          <BtnFinalizar
+            underlayColor="rgba(255,255,255,0.4)"
+            onPress={() => props.navigation.navigate("Finalizado")}
+          >
+            <BtnText> Finalizar </BtnText>
+          </BtnFinalizar>
+        </ButtonContainer>
       </ConfBackground>
-      <ButtonContainer>
-        <BtnCancelar>
-          <BtnText> Cancelar </BtnText>
-        </BtnCancelar>
-        <BtnFinalizar>
-          <BtnText> Finalizar </BtnText>
-        </BtnFinalizar>
-      </ButtonContainer>
-    </View>
+    </BG>
   );
 }

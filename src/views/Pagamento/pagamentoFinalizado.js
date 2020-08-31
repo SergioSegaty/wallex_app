@@ -28,7 +28,7 @@ const BtnVoltar = styled.TouchableHighlight`
 const BtnText = styled.Text`
   font-size: 20px;
   font-weight: bold;
-  color: black;
+  color: white;
 `;
 
 const Title = styled.Text`
@@ -38,7 +38,7 @@ const Title = styled.Text`
   color: white;
 `;
 
-export default function PagamentoFinalizado() {
+export default function PagamentoFinalizado(props) {
   return (
     <Container>
         <Title>Finalizado</Title>
@@ -47,7 +47,10 @@ export default function PagamentoFinalizado() {
           source={require("../../../assets/boleto.png")}
           style={{ borderRadius: 4 }}
         />
-      <BtnVoltar>
+      <BtnVoltar 
+        underlayColor='rgba(255,255,255,0.4)'
+        onPress={() => props.navigation.navigate('Home')}
+      >
         <BtnText>Voltar</BtnText>
       </BtnVoltar>
     </Container>

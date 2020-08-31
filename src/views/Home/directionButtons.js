@@ -49,17 +49,23 @@ const BtnText = styled.Text`
   font-size: 23px;
 `;
 
-function DirectionButtons() {
+function DirectionButtons(props) {
   return (
-    <View style={{paddingBottom: 100}}>
+    <View style={{ paddingBottom: 100 }}>
       <MainContainer>
-        <BtnExtrato>
+        <BtnExtrato
+          underlayColor="rgba(149, 194, 133, 0.3)"
+          onPress={() => props.onPressCallback("Extrato")}
+        >
           <BtnBox>
             <BtnText>Extrato</BtnText>
           </BtnBox>
         </BtnExtrato>
 
-        <BtnPagamento>
+        <BtnPagamento
+        underlayColor="rgba(149, 194, 133, 0.3)"
+        onPress={() => props.onPressCallback("Pagamento")}
+        >
           <BtnBox>
             <BtnText>Pagamento</BtnText>
           </BtnBox>
@@ -67,7 +73,10 @@ function DirectionButtons() {
       </MainContainer>
 
       <MainContainer>
-        <BtnTransf>
+        <BtnTransf
+        underlayColor="rgba(149, 194, 133, 0.3)"
+        onPress={() => props.onPressCallback("Dados")}
+        >
           <BtnBox>
             <BtnText>Transferencia</BtnText>
           </BtnBox>

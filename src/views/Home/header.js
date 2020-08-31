@@ -19,18 +19,22 @@ const Avatar = styled.Image`
 `;
 
 const ProfileName = styled.Text`
-  color: #95C285;
+  color: #95c285;
   font-weight: bold;
   font-size: 20px;
-  margin-left: -40px;
+  margin-left: -55px;
 `;
+
+let usuario = {
+  nome: "Sérgio Segaty",
+};
 
 function Header() {
   return (
     <Container>
       <Avatar />
       <View>
-        <ProfileName>Sérgio Segaty</ProfileName>
+        <ProfileName>{usuario.nome}</ProfileName>
       </View>
       <View></View>
     </Container>
