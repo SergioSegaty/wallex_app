@@ -7,15 +7,14 @@ const initialState = {
     saldo: "3.759,60",
     bloqueado: "739,70",
     novaTransacao: {
-      favorecido: {
-        nome: '',
-        cpf: '',
-        agencia: '',
-        tipoConta: '',
-        numeroConta: '',
-        valor: '',
-        desc: '',
-      }
+      nome: "",
+      cpf: "",
+      agencia: "",
+      tipoConta: "",
+      numeroConta: "",
+      valor: "",
+      valorString: "",
+      desc: "",
     },
     extrato: [
       {
@@ -52,6 +51,9 @@ const initialState = {
         nome: "Will Smith",
         cpf: "846.171.103-09",
         profilePic: "",
+        numeroConta: "71385",
+        tipoConta: "014",
+        agencia: "1514",
         transacoes: [
           {
             data: "08/09/2020",
@@ -97,11 +99,27 @@ const initialState = {
           },
         ],
       },
+      {
+        nome: "Sergio Segaty",
+        cpf: "051.588.409-03",
+        profilePic: "",
+        numeroConta: "51325",
+        tipoConta: "014",
+        agencia: "7555",
+        transacoes: [
+          {
+            data: "02/03/2020",
+            desc: "Almoço U",
+            valor: "-15,60",
+            id: "1",
+          },
+        ],
+      },
     ],
   },
 };
-
 //#endregion Estado Inicial
+
 export default function transacaoReducer(state = initialState, action) {
   switch (action.type) {
     case "pagamento/successful":
@@ -112,11 +130,63 @@ export default function transacaoReducer(state = initialState, action) {
       break;
     case "transacao/failed":
       break;
-    case "transacao/novaTransacao":
-    return {
+    case "add/foto":
+      let contato = [
+        ...state.user.contatos.filter((c) => c.cpf === action.item.cpf),
+      ];
+      contato = contato[0];
+      let indexAlvo = state.user.contatos.indexOf(contato);
+      let novosContatos = [...state.user.contatos];
+      novosContatos.splice(indexAlvo, 1, contato);
+      return {
         ...state,
-        novaTransacao: action.item
-    }
+        contatos: novosContatos,
+      };
+    case "transacao/novaTransacao/favorecido":
+      return {
+        ...state,
+        novaTransacao: {
+          ...state.novaTransacao,
+          cpf: action.item.cpf,
+          nome: action.item.nome,
+          numeroConta: action.item.numeroConta,
+          agencia: action.item.agencia,
+          tipoConta: action.item.tipoConta,
+        },
+      };
+    case "transacao/novaTransacao/valores":
+      return {
+        ...state,
+        novaTransacao: {
+          ...state.novaTransacao,
+          valor: action.item.valor,
+          valorString: action.item.valorString,
+          desc: action.item.desc,
+          data: action.item.data,
+          hora: action.item.hora,
+        },
+      };
+    case "transacao/finalizar":
+      let listaContatos = [...state.user.contatos];
+      let contatoAlvo = listaContatos.filter((p) => p.cpf === action.item.cpf);
+      if (contato.length < 1) {
+        action.item.id = "1";
+        listaContatos.push(action.item);
+      } else {
+        let indexAlvo = listaContatos.indexOf(contato[0]);
+        action.item.transacoes[0].id = (
+          contato[0].transacoes.length + 1
+        ).toString();
+        contato[0].transacoes.push(action.item.transacoes[0]);
+        listaContatos.splice(indexAlvo, 1, contato[0]);
+      }
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          contatos: listaContatos,
+        },
+      };
 
     default:
       return state;

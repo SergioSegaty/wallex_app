@@ -14,13 +14,16 @@ const BtnNovaTransf = styled.TouchableHighlight`
   elevation: 10;
 `;
 
-function NovaTransferencia() {
+function NovaTransferencia(props) {
   return (
     <>
-      <BtnNovaTransf>
-        <View>
-          <Text>Nova Transferencia</Text>
-        </View>
+      <BtnNovaTransf
+        onPress={() => props.onPressCallback()}
+        underlayColor="#c9e8ea"
+      >
+        <Text
+          style={{backgroundColor: 'rgba(0,0,0,0)'}}
+        >Nova Transferencia</Text>
       </BtnNovaTransf>
     </>
   );

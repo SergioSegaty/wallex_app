@@ -66,7 +66,7 @@ function Historico(props) {
             marginRight: "2%",
             marginTop: 15,
           }}
-          data={mockHist}
+          data={props.extrato}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <ItemsHistorico item={item} />}
         />

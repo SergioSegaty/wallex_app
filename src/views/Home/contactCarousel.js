@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
-import importedPic from "../../../assets/profilePics/will-smith.jpg";
+import importedPic from "../../../assets/profilePics/avatar.png";
 import { FlatList } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 
 const MainContainer = styled.View`
   justify-content: center;
@@ -41,19 +42,22 @@ const ProfileName = styled.Text`
 `;
 
 const mockContatos = {
-  nome: "Will Smith",
   profilePic: importedPic,
 };
 
 function ContactCarousel(props) {
-  const renderContato = ({item}) => {
+  const renderContato = ({ item }) => {
     return (
       <ProfileBox
         underlayColor="none"
-        onPress={() => props.onPressCallback(mockContatos.nome)}
+        onPress={() => props.onPressCallback(item.cpf)}
       >
         <>
-          <ProfileAvatar source={mockContatos.profilePic} />
+          {!item.profilePic ? (
+            <ProfileAvatar source={mockContatos.profilePic} />
+          ) : (
+            <ProfileAvatar source={{uri: item.profilePic}} />
+          )}
           <ProfileName>{item.nome}</ProfileName>
         </>
       </ProfileBox>
@@ -65,9 +69,11 @@ function ContactCarousel(props) {
       <Title> Contatos </Title>
       <ProfileContainer>
         <FlatList
-        contentContainerStyle={
-          {justifyContent: 'center', padding: 5, flexGrow: 1}
-        }
+          contentContainerStyle={{
+            justifyContent: "center",
+            padding: 5,
+            flexGrow: 1,
+          }}
           horizontal={true}
           data={props.contatos}
           renderItem={renderContato}
@@ -78,4 +84,10 @@ function ContactCarousel(props) {
   );
 }
 
-export default ContactCarousel;
+const mapStateToProps = (state) => {
+  return {
+    contatos: state.transacao.user.contatos,
+  };
+};
+
+export default connect(mapStateToProps)(ContactCarousel);

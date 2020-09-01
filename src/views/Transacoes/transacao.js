@@ -1,7 +1,22 @@
 import React, { Component, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { TextInputMask } from "react-native-masked-text";
+import Moment from 'moment';
+
+
+const styles = StyleSheet.create({
+  maskedInput: {
+    height: 35,
+    backgroundColor: "#e5e5e5",
+    borderRadius: 12,
+    width: "80%",
+    marginBottom: 15,
+    fontSize: 17,
+    fontWeight: "bold",
+  },
+});
 
 const BG = styled.ScrollView`
   background-color: #95c285;
@@ -29,7 +44,8 @@ const StyledInput = styled.TextInput`
   border-radius: 12px;
   width: 80%;
   margin-bottom: 15px;
-  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 const FormularioContainer = styled.View`
@@ -56,34 +72,56 @@ const BtnTrasnferencia = styled.TouchableHighlight`
   border-color: white;
 `;
 
-const _validarDados = (dados) =>{
+const _validarDados = (dados) => {
   let valid = false;
-  let mensagens = '';
+  let mensagens = "";
 
-  if(!Number.isInteger(dado.valor)){
-    mensagens += 'O valor não é um número válido \n\n';
-    
+  if (Number.isNaN(dados.valor)) {
+    mensagens += "O valor não é um número válido. \n\n";
+  } else if (dados.valor <= 0) {
+    mensagens += "O valor não pode ser menor que R$ 1. \n\n";
+  } else if (dados.valor > 300) {
+    mensagens += "O valor não pode ser maior que R$ 300. \n\n";
   }
 
+  if (dados.desc.length < 5) {
+    mensagens += "A descrição deve ter no mínimo 5 caracteres. \n\n";
+  } else if (dados.desc.length > 20) {
+    mensagens += "A descrição deve ter no máximo 20 caracteres. \n\n";
+  }
 
+  if (mensagens === "") {
+    valid = true;
+  }
 
-}
-
+  return { errors: mensagens, valid: valid };
+};
 
 function Transacao(props) {
-  const [valor, setValor] = useState('');
-  const [desc, setDesc] = useState('');
-  
-  
+  const [valor, setValor] = useState("");
+  const [desc, setDesc] = useState("");
+  let moneyMask;
+
   const _handleContinuar = () => {
-    dados = {
-      valor: valor,
+    let today = new Date();
+    let dados = {
+      valor: moneyMask.getRawValue(),
+      valorString: valor,
       desc: desc,
+      data: Moment(today).format('DD/MM/YYYY'),
+      hora: today.toLocaleTimeString(),
+    };
+
+    let result = _validarDados(dados);
+
+    if (!result.valid) {
+      Alert.alert("Dados Incorretos", result.errors, [{ text: "Ok" }]);
+      return;
     }
 
-   result = _validarDados(dados);
-  }
-
+    props.dispatch({ type: "transacao/novaTransacao/valores", item: dados });
+    props.navigation.navigate("Confirmacao");
+  };
 
   return (
     <BG>
@@ -91,20 +129,33 @@ function Transacao(props) {
         <Title> Dados da Transação </Title>
 
         <StyledLabel>Valor</StyledLabel>
-        <StyledInput 
-          onChangeText={text => setValor(text)}
+        <TextInputMask
+          style={styles.maskedInput}
           value={valor}
+          type={"money"}
+          includeRawValueInChangeText={true}
+          options={{
+            precision: 2,
+            separator: ",",
+            delimiter: ".",
+            unit: "R$ ",
+          }}
+          paddingLeft={15}
+          onChangeText={(text) => setValor(text)}
+          ref={(ref) => (moneyMask = ref)}
         />
 
         <StyledLabel>Descrição</StyledLabel>
-        <StyledInput 
-          onChangeText={text => setDesc(text)}
+        <StyledInput
+          paddingLeft={15}
+          onChangeText={(text) => setDesc(text)}
           value={desc}
         />
 
-        <BtnTrasnferencia 
-        underlayColor='rgba(255,255,255,0.4)'
-        onPress={() => props.navigation.navigate('Confirmacao')}>
+        <BtnTrasnferencia
+          underlayColor="rgba(255,255,255,0.4)"
+          onPress={() => _handleContinuar()}
+        >
           <StyledLabel>Confirmar</StyledLabel>
         </BtnTrasnferencia>
       </FormularioContainer>

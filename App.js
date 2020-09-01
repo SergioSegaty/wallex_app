@@ -15,11 +15,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./src/reducers/reducer";
+import AvatarPicker from './src/components/imagePicker'
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer);
 
-export default function App(props) {
+export default function App() {
   return (
     <>
       <Provider store={store}>
@@ -35,6 +36,7 @@ export default function App(props) {
             <Stack.Screen name="Perfil" component={Perfil} />
             <Stack.Screen name="Confirmacao" component={Confirmacao} />
             <Stack.Screen name="Finalizado" component={PagamentoFinalizado} />
+            <Stack.Screen name="ImgPicker" component={AvatarPicker}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

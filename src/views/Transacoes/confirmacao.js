@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
-
-const transacao = {
-  nomeFavorecido: "Jonathan Ribeiro",
-  cpf: "058.409.301-09",
-  agencia: "049",
-  conta: "103944",
-  valor: "130,90",
-  data: "27/08/2020",
-  hora: "11:32:55",
-};
+import { connect } from "react-redux";
 
 const BG = styled.View`
   background-color: #95c285;
@@ -85,13 +76,36 @@ const Title = styled.Text`
   color: white;
 `;
 
-export default function Confirmacao(props) {
+const _handleFinalizar = (props, transacao) => {
+  let contato = {
+    nome: transacao.nome,
+    cpf: transacao.cpf,
+    agencia: transacao.agencia,
+    numeroConta: transacao.numeroConta,
+    tipoConta: transacao.tipoConta,
+    transacoes: [
+      {
+        id: '1',
+        data: transacao.data,
+        desc: transacao.desc,
+        valor: (transacao.valor * -1).toString().replace('.' , ','),
+      }
+    ]
+  }
+  
+  props.dispatch({type: 'transacao/finalizar', item: contato})
+  props.navigation.navigate("Finalizado");
+};
+
+function Confirmacao(props) {
+  let transacao = props.transacao;
+
   return (
     <BG>
       <ConfBackground>
         <Title> Confirmação </Title>
         <StyledLabel>
-          Nome: <StyledOutput>{transacao.nomeFavorecido} </StyledOutput>{" "}
+          Nome: <StyledOutput>{transacao.nome} </StyledOutput>{" "}
         </StyledLabel>
         <StyledLabel>
           CPF: <StyledOutput>{transacao.cpf}</StyledOutput>
@@ -99,11 +113,11 @@ export default function Confirmacao(props) {
         <StyledLabel>
           Agencia/Conta:{" "}
           <StyledOutput>
-            {transacao.agencia} - {transacao.conta}
+            {transacao.agencia} - {transacao.numeroConta}
           </StyledOutput>{" "}
         </StyledLabel>
         <StyledLabel>
-          Valor: <StyledOutput>R$ {transacao.valor}</StyledOutput>
+          Valor: <StyledOutput>{transacao.valorString}</StyledOutput>
         </StyledLabel>
         <StyledLabel>
           Data/Hora:{" "}
@@ -120,7 +134,7 @@ export default function Confirmacao(props) {
           </BtnCancelar>
           <BtnFinalizar
             underlayColor="rgba(255,255,255,0.4)"
-            onPress={() => props.navigation.navigate("Finalizado")}
+            onPress={() => _handleFinalizar(props, transacao)}
           >
             <BtnText> Finalizar </BtnText>
           </BtnFinalizar>
@@ -129,3 +143,11 @@ export default function Confirmacao(props) {
     </BG>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    transacao: state.transacao.novaTransacao,
+  };
+};
+
+export default connect(mapStateToProps)(Confirmacao);

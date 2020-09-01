@@ -1,7 +1,21 @@
 import React, { useState } from "react";
-import { Text, View, Alert } from "react-native";
+import { Text, View, Alert, StyleSheet } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { TextInputMask } from "react-native-masked-text";
+
+const styles = StyleSheet.create({
+  cpfInput: {
+    height: 35,
+    backgroundColor: "#e5e5e5",
+    borderRadius: 12,
+    width: "80%",
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 17,
+    fontWeight: "bold",
+  },
+});
 
 const BG = styled.ScrollView`
   background-color: #95c285;
@@ -40,6 +54,8 @@ const StyledInput = styled.TextInput`
   width: 80%;
   margin-bottom: 15px;
   text-align: center;
+  font-size: 17px;
+  font-weight: bold;
 `;
 
 const ContaView = styled.View`
@@ -64,9 +80,9 @@ const _validaDados = (dados) => {
   let valid = false;
 
   if (dados.nome.length < 5 || dados.nome.length > 15) {
-    mensagens += "Nome deve ter entre 5 à 15 caractéres \n\n";
+    mensagens += "Nome deve ter entre 5 à 15 caracteres \n\n";
   }
-  if (dados.cpf.length !== 11) {
+  if (dados.cpf.length !== 14) {
     mensagens += "Cpf inválido \n\n";
   }
   if (dados.agencia.length !== 4) {
@@ -96,18 +112,20 @@ function DadosPessoais(props) {
     };
 
     let result = _validaDados(dados);
-    if (result.valid) {
-      props.dispatch({type: 'transacao/novaTransacao', item: dados})
-      props.navigation.navigate("Transacao");
-    } else {
+
+    if (!result.valid) {
       Alert.alert("Falha ao Autenticar", result.errors, [{ text: "Ok" }]);
+      return;
     }
+    props.dispatch({ type: "transacao/novaTransacao/favorecido", item: dados });
+    props.navigation.navigate("Transacao");
   };
   const [nome, setNome] = useState("");
   const [CPF, setCPF] = useState("");
   const [agencia, setAgencia] = useState("");
   const [tipoConta, setTipoConta] = useState("");
   const [numeroConta, setNumeroConta] = useState("");
+  const [cleanCPF, setCleanCPF] = useState("");
 
   return (
     <BG>
@@ -118,7 +136,17 @@ function DadosPessoais(props) {
         <StyledInput onChangeText={(text) => setNome(text)} value={nome} />
 
         <StyledLabel>CPF</StyledLabel>
-        <StyledInput onChangeText={(text) => setCPF(text)} value={CPF} />
+        {/* <StyledInput onChangeText={(text) => setCPF(text)} value={CPF} /> */}
+        <TextInputMask
+          style={styles.cpfInput}
+          type={"cpf"}
+          value={CPF}
+          includeRawValueInChangeText={true}
+          onChangeText={(maskedText, rawText) => {
+            setCPF(maskedText);
+            setCleanCPF(rawText);
+          }}
+        />
 
         <StyledLabel>Agencia</StyledLabel>
         <StyledInput
