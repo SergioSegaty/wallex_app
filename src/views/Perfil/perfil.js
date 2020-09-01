@@ -6,7 +6,6 @@ import Historico from "./historico";
 import { connect } from "react-redux";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-
 const PerfilContainer = styled.View`
   margin-top: 30px;
   align-items: center;
@@ -42,6 +41,7 @@ const _handleNovaTransf = (props) => {
 };
 
 function Perfil(props) {
+  console.log(props.perfil);
   return (
     <>
       <PerfilContainer>
@@ -52,11 +52,13 @@ function Perfil(props) {
           source={require("../../../assets/profilePics/avatar.png")}
         />
       ) : (
-        <ProfilePicture source={{uri: props.perfil.profilePic}} />
+        <ProfilePicture source={{ uri: props.perfil.profilePic }} />
       )}
       <TouchableHighlight
-        style={{alignSelf: 'center'}}
-        onPress={() => {props.navigation.navigate('ImgPicker')}}
+        style={{ alignSelf: "center" }}
+        onPress={() => {
+          props.navigation.navigate("ImgPicker");
+        }}
       >
         <Text>Editar Imagem</Text>
       </TouchableHighlight>

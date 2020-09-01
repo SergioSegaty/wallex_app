@@ -137,10 +137,17 @@ export default function transacaoReducer(state = initialState, action) {
       contato = contato[0];
       let indexAlvo = state.user.contatos.indexOf(contato);
       let novosContatos = [...state.user.contatos];
+      console.log('Velhos Contatos');
+      console.log(novosContatos);
       novosContatos.splice(indexAlvo, 1, contato);
+      console.log('Novos Contatos');
+      console.log(novosContatos);
       return {
         ...state,
-        contatos: novosContatos,
+        user: {
+          ...state.user,
+          contatos: novosContatos,
+        }
       };
     case "transacao/novaTransacao/favorecido":
       return {
@@ -169,16 +176,16 @@ export default function transacaoReducer(state = initialState, action) {
     case "transacao/finalizar":
       let listaContatos = [...state.user.contatos];
       let contatoAlvo = listaContatos.filter((p) => p.cpf === action.item.cpf);
-      if (contato.length < 1) {
+      if (contatoAlvo.length < 1) {
         action.item.id = "1";
         listaContatos.push(action.item);
       } else {
-        let indexAlvo = listaContatos.indexOf(contato[0]);
+        let indexAlvo = listaContatos.indexOf(contatoAlvo[0]);
         action.item.transacoes[0].id = (
-          contato[0].transacoes.length + 1
+          contatoAlvo[0].transacoes.length + 1
         ).toString();
-        contato[0].transacoes.push(action.item.transacoes[0]);
-        listaContatos.splice(indexAlvo, 1, contato[0]);
+        contatoAlvo[0].transacoes.push(action.item.transacoes[0]);
+        listaContatos.splice(indexAlvo, 1, contatoAlvo[0]);
       }
       return {
         ...state,

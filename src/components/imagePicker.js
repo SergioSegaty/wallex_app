@@ -50,9 +50,10 @@ class AvatarPicker extends React.Component {
       if (!result.cancelled) {
         let perfilAtualizado = this.props.perfil;
         perfilAtualizado.profilePic = result.uri;
-        this.props.dispatch({ type: "add/foto", item: perfilAtualizado});
-        this.props.navigation.navigate('Perfil');
-    }
+        
+        this.props.dispatch({ type: "add/foto", item: perfilAtualizado });
+        this.props.navigation.navigate("Perfil");
+      }
     } catch (E) {
       console.log(E);
     }
