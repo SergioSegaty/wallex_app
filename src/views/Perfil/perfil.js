@@ -57,7 +57,8 @@ function Perfil(props) {
         <ProfilePicture source={{ uri: props.perfil.profilePic }} />
       )}
       <TouchableHighlight
-        style={{ alignSelf: "center" }}
+        style={{ alignSelf: "center", borderRadius: 12, padding: 5 }}
+        underlayColor={'rgba(12,145,146,0.6)'}
         onPress={() => {
           props.navigation.navigate("ImgPicker");
         }}

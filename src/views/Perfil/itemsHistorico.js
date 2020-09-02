@@ -22,12 +22,17 @@ const Data = styled.Text`
 const Desc = styled.Text`
   font-size: 22px;
   font-weight: 600;
+  text-align: left;
 `;
 
 const Valor = styled.Text`
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
   color: #c72222;
+  width: 20%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: center;
 `;
 
 export default function ItemsHistorico(props) {
