@@ -88,7 +88,6 @@ export default function contatos(state = initialState, action) {
     case "atualizar/contatos":
       let listaContatos = [...state.contatos];
       let contatoAlvo = listaContatos.filter((p) => p.cpf === action.item.cpf);
-      console.log(contatoAlvo);
       contatoAlvo = contatoAlvo[0];
       if (contatoAlvo.length < 1) {
         action.item.id = "1";

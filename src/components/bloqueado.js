@@ -26,7 +26,6 @@ const TextBloqueio = styled.Text`
 `;
 
 const formatValor = (valor) => {
-  console.log(valor);
   const formatter = new Intl.NumberFormat('pt-BR',{
     style: "currency",
     currency: "BRL",
