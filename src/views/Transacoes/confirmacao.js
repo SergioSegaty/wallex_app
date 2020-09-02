@@ -88,12 +88,13 @@ const _handleFinalizar = (props, transacao) => {
         id: '1',
         data: transacao.data,
         desc: transacao.desc,
-        valor: (transacao.valor * -1).toString().replace('.' , ','),
+        valor: (transacao.valor * -1),
       }
     ]
   }
   
   props.dispatch({type: 'atualizar/contatos', item: contato})
+  props.dispatch({type: 'transacao/sucedida', item: contato.transacoes[0]})
   props.navigation.navigate("Finalizado");
 };
 

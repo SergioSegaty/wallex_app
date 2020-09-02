@@ -53,20 +53,22 @@ const initialState = {
 
 export default function transacao(state = initialState, action) {
   switch (action.type) {
-    case "pagamento/successful":
+    case "pagamento/sucedida":
       break;
-    case "pagamento/failed":
+    case "pagamento/falha":
       break;
-    case "transacao/successful":
+    case "transacao/sucedida":
     let saldoNovo = state.user.saldo;
-    saldoNovo += (parseFloat(action.item.valor).toFixed(2) * -1);
-    return {
-      ...state,
-      user: {
-        ...state.user,
-        saldo: saldoNovo
-      }
-    }
+    console.log(action.item.valor);
+    saldoNovo += parseFloat(action.item.valor).toFixed(2);
+    // return {
+    //   ...state,
+    //   user: {
+    //     ...state.user,
+    //     saldo: saldoNovo
+    //   }
+    // }
+    return state;
     break;
     case "transacao/failed":
       break;
