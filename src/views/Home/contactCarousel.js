@@ -86,7 +86,7 @@ function ContactCarousel(props) {
 
 const mapStateToProps = (state) => {
   return {
-    contatos: state.transacao.user.contatos,
+    contatos: state.contatos.contatos,
   };
 };
 

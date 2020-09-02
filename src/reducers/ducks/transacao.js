@@ -4,8 +4,8 @@ const initialState = {
     login: "sergiosj",
     senha: "senha123",
     nome: "Sérgio Segaty",
-    saldo: "3.759,60",
-    bloqueado: "739,70",
+    saldo: 2000.70,
+    bloqueado: 739.70,
     novaTransacao: {
       nome: "",
       cpf: "",
@@ -46,109 +46,31 @@ const initialState = {
         id: "4",
       },
     ],
-    contatos: [
-      {
-        nome: "Will Smith",
-        cpf: "846.171.103-09",
-        profilePic: "",
-        numeroConta: "71385",
-        tipoConta: "014",
-        agencia: "1514",
-        transacoes: [
-          {
-            data: "08/09/2020",
-            desc: "Almoço",
-            valor: "-15,60",
-            id: "1",
-          },
-          {
-            data: "05/03/2020",
-            desc: "Emprestado",
-            valor: "-17,50",
-            id: "2",
-          },
-          {
-            data: "02/03/2020",
-            desc: "Almoço",
-            valor: "-15,60",
-            id: "3",
-          },
-          {
-            data: "02/03/2020",
-            desc: "Almoço",
-            valor: "-15,60",
-            id: "4",
-          },
-          {
-            data: "02/03/2020",
-            desc: "Almoço",
-            valor: "-15,60",
-            id: "5",
-          },
-          {
-            data: "02/03/2020",
-            desc: "Almoço",
-            valor: "-15,60",
-            id: "6",
-          },
-          {
-            data: "02/03/2020",
-            desc: "Almoço U",
-            valor: "-15,60",
-            id: "7",
-          },
-        ],
-      },
-      {
-        nome: "Sergio Segaty",
-        cpf: "051.588.409-03",
-        profilePic: "",
-        numeroConta: "51325",
-        tipoConta: "014",
-        agencia: "7555",
-        transacoes: [
-          {
-            data: "02/03/2020",
-            desc: "Almoço U",
-            valor: "-15,60",
-            id: "1",
-          },
-        ],
-      },
-    ],
+    
   },
 };
 //#endregion Estado Inicial
 
-export default function transacaoReducer(state = initialState, action) {
+export default function transacao(state = initialState, action) {
   switch (action.type) {
     case "pagamento/successful":
       break;
     case "pagamento/failed":
       break;
     case "transacao/successful":
-      break;
+    let saldoNovo = state.user.saldo;
+    saldoNovo += (parseFloat(action.item.valor).toFixed(2) * -1);
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        saldo: saldoNovo
+      }
+    }
+    break;
     case "transacao/failed":
       break;
-    case "add/foto":
-      let contato = [
-        ...state.user.contatos.filter((c) => c.cpf === action.item.cpf),
-      ];
-      contato = contato[0];
-      let indexAlvo = state.user.contatos.indexOf(contato);
-      let novosContatos = [...state.user.contatos];
-      console.log('Velhos Contatos');
-      console.log(novosContatos);
-      novosContatos.splice(indexAlvo, 1, contato);
-      console.log('Novos Contatos');
-      console.log(novosContatos);
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          contatos: novosContatos,
-        }
-      };
+    
     case "transacao/novaTransacao/favorecido":
       return {
         ...state,
@@ -173,28 +95,7 @@ export default function transacaoReducer(state = initialState, action) {
           hora: action.item.hora,
         },
       };
-    case "transacao/finalizar":
-      let listaContatos = [...state.user.contatos];
-      let contatoAlvo = listaContatos.filter((p) => p.cpf === action.item.cpf);
-      if (contatoAlvo.length < 1) {
-        action.item.id = "1";
-        listaContatos.push(action.item);
-      } else {
-        let indexAlvo = listaContatos.indexOf(contatoAlvo[0]);
-        action.item.transacoes[0].id = (
-          contatoAlvo[0].transacoes.length + 1
-        ).toString();
-        contatoAlvo[0].transacoes.push(action.item.transacoes[0]);
-        listaContatos.splice(indexAlvo, 1, contatoAlvo[0]);
-      }
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          contatos: listaContatos,
-        },
-      };
-
+    
     default:
       return state;
   }

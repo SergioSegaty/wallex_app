@@ -5,6 +5,7 @@ import NovaTransferencia from "./novaTransferencia";
 import Historico from "./historico";
 import { connect } from "react-redux";
 import { TouchableHighlight } from "react-native-gesture-handler";
+import { useIsFocused } from '@react-navigation/native';
 
 const PerfilContainer = styled.View`
   margin-top: 30px;
@@ -41,7 +42,8 @@ const _handleNovaTransf = (props) => {
 };
 
 function Perfil(props) {
-  console.log(props.perfil);
+  const isFocused = useIsFocused();
+
   return (
     <>
       <PerfilContainer>
