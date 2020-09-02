@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Intl from "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 const SaldoBox = styled.View`
   width: 100%;
@@ -22,18 +24,27 @@ const TextSaldo = styled.Text`
   margin-bottom: 10px;
 `;
 
+const formatValor = (valor) => {
+  const formatter = new Intl.NumberFormat('pt-BR',{
+    style: "currency",
+    currency: "BRL",
+  });
+
+  return formatter.format(valor);
+};
+
 function Saldo(props) {
   return (
     <SaldoBox>
       <TextSaldo>Saldo</TextSaldo>
-      <ValorSaldo>R$ {props.saldo}</ValorSaldo>
+      <ValorSaldo>{props.saldo}</ValorSaldo>
     </SaldoBox>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    saldo: state.transacao.user.saldo
+    saldo: formatValor(state.transacao.user.saldo),
   };
 };
 

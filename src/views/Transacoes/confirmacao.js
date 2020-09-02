@@ -93,7 +93,7 @@ const _handleFinalizar = (props, transacao) => {
     ]
   }
   
-  props.dispatch({type: 'transacao/finalizar', item: contato})
+  props.dispatch({type: 'atualizar/contatos', item: contato})
   props.navigation.navigate("Finalizado");
 };
 

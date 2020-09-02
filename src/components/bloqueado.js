@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Intl from "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 const BloqueioBox = styled.View`
   width: 100%;
@@ -23,18 +25,28 @@ const TextBloqueio = styled.Text`
   margin-bottom: 10px;
 `;
 
+const formatValor = (valor) => {
+  console.log(valor);
+  const formatter = new Intl.NumberFormat('pt-BR',{
+    style: "currency",
+    currency: "BRL",
+  });
+
+  return formatter.format(valor);
+};
+
 function Bloqueio(props) {
   return (
     <BloqueioBox>
       <TextBloqueio>Bloqueado</TextBloqueio>
-      <ValorBloqueio>R$ {props.bloqueado}</ValorBloqueio>
+      <ValorBloqueio>{props.bloqueado}</ValorBloqueio>
     </BloqueioBox>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    bloqueado: state.transacao.user.bloqueado
+    bloqueado: formatValor(state.transacao.user.bloqueado)
   }
 }
 

@@ -17,7 +17,7 @@ const UnderLine = styled.View`
 `;
 
 const _handleClickPerfil = (props, cpf) => {
-  let contatoAlvo = props.user.contatos.filter(x => x.cpf === cpf);
+  let contatoAlvo = props.contatos.filter(x => x.cpf === cpf);
   props.dispatch({type: 'perfil/selecao', item: contatoAlvo[0]});
   props.navigation.navigate('Perfil');
 };
@@ -25,14 +25,14 @@ const _handleClickPerfil = (props, cpf) => {
 function Home(props) {
   return (
     <View>
-      <Header />
+      <Header/>
       <ScrollView>
         <UnderLine />
         <CardCarousel />
         <Saldo />
         <UnderLine />
         <ContactCarousel
-          contatos={props.user.contatos}
+          // contatos={props.user.contatos}
           onPressCallback={(cpf) => _handleClickPerfil(props, cpf)}
         />
         <DirectionButtons
@@ -46,6 +46,7 @@ function Home(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.transacao.user,
+    contatos: state.contatos.contatos
   };
 };
 

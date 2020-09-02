@@ -27,7 +27,6 @@ class AvatarPicker extends React.Component {
 
   componentDidMount() {
     this.getPermissionAsync();
-    console.log(this.props.perfil);
   }
 
   getPermissionAsync = async () => {
@@ -37,6 +36,12 @@ class AvatarPicker extends React.Component {
         alert("Sorry, we need camera roll permissions to make this work!");
       }
     }
+  };
+
+  updateState = (perfilAtualizado) => {
+    this.props.dispatch({ type: "perfil/selecao", item: perfilAtualizado });
+    this.props.dispatch({ type: "add/foto", item: perfilAtualizado });
+    this.props.navigation.pop();
   };
 
   _pickImage = async () => {
@@ -50,9 +55,7 @@ class AvatarPicker extends React.Component {
       if (!result.cancelled) {
         let perfilAtualizado = this.props.perfil;
         perfilAtualizado.profilePic = result.uri;
-        
-        this.props.dispatch({ type: "add/foto", item: perfilAtualizado });
-        this.props.navigation.navigate("Perfil");
+        this.updateState(perfilAtualizado);
       }
     } catch (E) {
       console.log(E);

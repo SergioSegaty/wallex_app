@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const Container = styled.View`
   width: 100%;
@@ -25,20 +26,24 @@ const ProfileName = styled.Text`
   margin-left: -55px;
 `;
 
-let usuario = {
-  nome: "Sérgio Segaty",
-};
 
-function Header() {
+function Header(props) {
   return (
     <Container>
       <Avatar />
       <View>
-        <ProfileName>{usuario.nome}</ProfileName>
+        <ProfileName>{props.usuario.nome}</ProfileName>
       </View>
       <View></View>
     </Container>
   );
 }
 
-export default Header;
+
+const mapStateToProps= (state) => {
+  	return {
+      usuario: state.transacao.user
+    }
+}
+
+export default connect(mapStateToProps)(Header);

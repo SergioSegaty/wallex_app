@@ -114,7 +114,7 @@ function DadosPessoais(props) {
     let result = _validaDados(dados);
 
     if (!result.valid) {
-      Alert.alert("Falha ao Autenticar", result.errors, [{ text: "Ok" }]);
+      Alert.alert("Confirme os Dados", result.errors, [{ text: "Ok" }]);
       return;
     }
     props.dispatch({ type: "transacao/novaTransacao/favorecido", item: dados });
@@ -136,7 +136,6 @@ function DadosPessoais(props) {
         <StyledInput onChangeText={(text) => setNome(text)} value={nome} />
 
         <StyledLabel>CPF</StyledLabel>
-        {/* <StyledInput onChangeText={(text) => setCPF(text)} value={CPF} /> */}
         <TextInputMask
           style={styles.cpfInput}
           type={"cpf"}
