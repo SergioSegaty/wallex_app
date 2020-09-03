@@ -9,6 +9,7 @@ const ExtratoI = styled.View`
   border-radius: 7px;
   flex-direction: row;
   justify-content: space-between;
+  height: 60px;
 `;
 
 const SubContainer = styled.View``;
@@ -16,6 +17,7 @@ const SubContainer = styled.View``;
 const Documento = styled.Text`
   font-size: 13px;
   margin-left: 25px;
+  margin-top: 2px;
 `;
 
 const Data = styled.Text`

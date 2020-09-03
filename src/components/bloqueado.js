@@ -9,7 +9,7 @@ const BloqueioBox = styled.View`
   width: 100%;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const ValorBloqueio = styled.Text`

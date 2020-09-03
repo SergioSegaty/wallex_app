@@ -16,6 +16,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./src/reducers/reducer";
 import AvatarPicker from './src/components/imagePicker'
+import confirmacaoPagamento from "./src/views/Pagamento/confirmacaoPagamento";
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer);
@@ -37,6 +38,7 @@ export default function App() {
             <Stack.Screen name="Confirmacao" component={Confirmacao} />
             <Stack.Screen name="Finalizado" component={PagamentoFinalizado} />
             <Stack.Screen name="ImgPicker" component={AvatarPicker}/>
+            <Stack.Screen name="ConfirmacaoPagamento" component={confirmacaoPagamento}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

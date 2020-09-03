@@ -3,6 +3,7 @@ import { Text, View, Alert, StyleSheet } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
+import ArrowVoltar from "../../components/arrowVoltar";
 
 const styles = StyleSheet.create({
   cpfInput: {
@@ -129,6 +130,7 @@ function DadosPessoais(props) {
 
   return (
     <BG>
+        <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
       <FormularioContainer>
         <Title> Dados Pessoais </Title>
 

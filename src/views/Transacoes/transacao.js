@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
 import Moment from 'moment';
+import ArrowVoltar from "../../components/arrowVoltar";
 
 
 const styles = StyleSheet.create({
@@ -125,6 +126,7 @@ function Transacao(props) {
 
   return (
     <BG>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
       <FormularioContainer>
         <Title> Dados da Transação </Title>
 

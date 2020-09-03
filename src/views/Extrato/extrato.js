@@ -4,29 +4,26 @@ import styled from "styled-components";
 import Saldo from "../../components/saldo";
 import Bloqueio from "../../components/bloqueado";
 import ExtratoBox from "./extratoBox";
+import ArrowVoltar from "../../components/arrowVoltar";
+import DatePicker from "./datePicker";
 
 const StyledBG = styled.View`
-  width: 96%;
+  width: 90%;
   elevation: 15;
   background-color: #a0cdd0;
-  height: 320px;
   margin-top: 30px;
   border-top-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  margin-left: 2%;
+  align-self: center;
 `;
 
-const Separator = styled.View`
-  margin-top: 55px;
-  margin-bottom: 55px;
-`;
 
 function Extrato(props) {
   return (
     <>
       <StyledBG>
+        <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
         <Saldo></Saldo>
-        <Separator />
         <Bloqueio></Bloqueio>
       </StyledBG>
       <ExtratoBox />

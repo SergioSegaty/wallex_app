@@ -6,6 +6,11 @@ const initialState = {
     nome: "Sérgio Segaty",
     saldo: 2000.7,
     bloqueado: 739.7,
+    novoPagamento: {
+      banco: "",
+      vencimento: "",
+      valor: "",
+    },
     novaTransacao: {
       nome: "",
       cpf: "",

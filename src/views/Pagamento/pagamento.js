@@ -1,16 +1,21 @@
-import React, { Component } from "react";
-import { Text, View } from "react-native";
+import React, { Component, useState } from "react";
+import { Text, View, Alert } from "react-native";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import ArrowVoltar from "../../components/arrowVoltar";
 
 const PagamentoBackground = styled.View`
   background-color: #95c285;
   width: 100%;
   height: 100%;
   border-radius: 7px;
+`;
+
+const MainContainer = styled.View`
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 `;
 
 const Title = styled.Text`
@@ -71,30 +76,52 @@ const ButtonContainer = styled.View`
   width: 100%;
 `;
 
+const _handleFinalizar = (props, codigoBarras) => {
+  if (codigoBarras.length < 10) {
+    Alert.alert("Falha ao Finalizar", "Codigo de Barras não é valido", [
+      { text: "Ok" },
+    ]);
+    return;
+  }
+
+  props.navigation.navigate("ConfirmacaoPagamento");
+};
+
 export default function Pagamento(props) {
+  const [codigoBarras, setCodigoBarras] = useState("");
   return (
     <PagamentoBackground>
-      <Title>Pagamento de Contas</Title>
-      <View>
-        <Btn>
-          <View style={{ alignItems: "center" }}>
-            <BtnText>Ler código de barras</BtnText>
-            <FontAwesomeIcon icon={faCamera} size={35} style={{marginTop: 10}} />
-          </View>
-        </Btn>
-        <Btn>
-          <View style={{ alignItems: "center" }}>
-            <StyledLabel>Ou digite o código de barras</StyledLabel>
-            <InputCodigo />
-          </View>
-        </Btn>
-      </View>
-      <BtnFinalizar
-        underlayColor='rgba(255,255,255,0.4)'
-        onPress={() => props.navigation.navigate('Finalizado')}
-      >
-        <BtnText>Finalizar</BtnText>
-      </BtnFinalizar>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
+      <MainContainer>
+        <Title>Pagamento de Contas</Title>
+        <View>
+          <Btn>
+            <View style={{ alignItems: "center" }}>
+              <BtnText>Ler código de barras</BtnText>
+              <FontAwesomeIcon
+                icon={faCamera}
+                size={35}
+                style={{ marginTop: 10 }}
+              />
+            </View>
+          </Btn>
+          <Btn>
+            <View style={{ alignItems: "center" }}>
+              <StyledLabel>Ou digite o código de barras</StyledLabel>
+              <InputCodigo
+                onChangeText={(text) => setCodigoBarras(text)}
+                value={codigoBarras}
+              />
+            </View>
+          </Btn>
+        </View>
+        <BtnFinalizar
+          underlayColor="rgba(255,255,255,0.4)"
+          onPress={() => _handleFinalizar(props, codigoBarras)}
+        >
+          <BtnText>Finalizar</BtnText>
+        </BtnFinalizar>
+      </MainContainer>
     </PagamentoBackground>
   );
 }
