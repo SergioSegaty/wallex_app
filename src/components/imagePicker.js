@@ -3,6 +3,23 @@ import { Button, Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { connect } from "react-redux";
+import styled from "styled-components";
+
+const BtnFoto = styled.TouchableHighlight`
+  height: 150px;
+  width: 250px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  border-color: white;
+`;
+
+const BtnText = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+`;
 
 class AvatarPicker extends React.Component {
   state = {
@@ -13,14 +30,20 @@ class AvatarPicker extends React.Component {
     let { image } = this.state;
 
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Button
-          title="Pick an image from camera roll"
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#95c285",
+        }}
+      >
+        <BtnFoto
           onPress={this._pickImage}
-        />
-        {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-        )}
+          underlayColor={"rgba(255,255,255, 0.4)"}
+        >
+          <BtnText>Escolha uma Imagem</BtnText>
+        </BtnFoto>
       </View>
     );
   }
@@ -33,7 +56,9 @@ class AvatarPicker extends React.Component {
     if (Platform.OS !== "web") {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
+        alert(
+          "Desculpe, mas precisamos da permissão da câmera para funcionar!"
+        );
       }
     }
   };
