@@ -1,73 +1,73 @@
 const initialState = {
   contatos: [
-    {
-      nome: "Will Smith",
-      cpf: "846.171.103-09",
-      profilePic: "",
-      numeroConta: "71385",
-      tipoConta: "014",
-      agencia: "1514",
-      transacoes: [
-        {
-          data: "08/09/2020",
-          desc: "Almoço",
-          valor: "-15,60",
-          id: "1",
-        },
-        {
-          data: "05/03/2020",
-          desc: "Emprestado",
-          valor: "-17,50",
-          id: "2",
-        },
-        {
-          data: "02/03/2020",
-          desc: "Almoço",
-          valor: "-15,60",
-          id: "3",
-        },
-        {
-          data: "02/03/2020",
-          desc: "Almoço",
-          valor: "-15,60",
-          id: "4",
-        },
-        {
-          data: "02/03/2020",
-          desc: "Almoço",
-          valor: "-15,60",
-          id: "5",
-        },
-        {
-          data: "02/03/2020",
-          desc: "Almoço",
-          valor: "-15,60",
-          id: "6",
-        },
-        {
-          data: "02/03/2020",
-          desc: "Almoço U",
-          valor: "-15,60",
-          id: "7",
-        },
-      ],
-    },
-    {
-      nome: "Arthur Farias",
-      cpf: "056.528.509-04",
-      profilePic: "",
-      numeroConta: "51325",
-      tipoConta: "014",
-      agencia: "7555",
-      transacoes: [
-        {
-          data: "02/03/2020",
-          desc: "Almoço U",
-          valor: "-15,60",
-          id: "1",
-        },
-      ],
-    },
+    // {
+    //   nome: "Will Smith",
+    //   cpf: "846.171.103-09",
+    //   profilePic: "",
+    //   numeroConta: "71385",
+    //   tipoConta: "014",
+    //   agencia: "1514",
+    //   transacoes: [
+    //     {
+    //       data: "08/09/2020",
+    //       desc: "Almoço",
+    //       valor: "-15,60",
+    //       id: "1",
+    //     },
+    //     {
+    //       data: "05/03/2020",
+    //       desc: "Emprestado",
+    //       valor: "-17,50",
+    //       id: "2",
+    //     },
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço",
+    //       valor: "-15,60",
+    //       id: "3",
+    //     },
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço",
+    //       valor: "-15,60",
+    //       id: "4",
+    //     },
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço",
+    //       valor: "-15,60",
+    //       id: "5",
+    //     },
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço",
+    //       valor: "-15,60",
+    //       id: "6",
+    //     },
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço U",
+    //       valor: "-15,60",
+    //       id: "7",
+    //     },
+    //   ],
+    // },
+    // {
+    //   nome: "Arthur Farias",
+    //   cpf: "056.528.509-04",
+    //   profilePic: "",
+    //   numeroConta: "51325",
+    //   tipoConta: "014",
+    //   agencia: "7555",
+    //   transacoes: [
+    //     {
+    //       data: "02/03/2020",
+    //       desc: "Almoço U",
+    //       valor: "-15,60",
+    //       id: "1",
+    //     },
+    //   ],
+    // },
   ],
 };
 
@@ -89,7 +89,7 @@ export default function contatos(state = initialState, action) {
       let listaContatos = [...state.contatos];
       let contatoAlvo = listaContatos.filter((p) => p.cpf === action.item.cpf);
       contatoAlvo = contatoAlvo[0];
-      if (contatoAlvo.length < 1) {
+      if (!contatoAlvo) {
         action.item.id = "1";
         listaContatos.push(action.item);
       } else {

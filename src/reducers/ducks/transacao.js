@@ -4,8 +4,8 @@ const initialState = {
     login: "sergiosj",
     senha: "senha123",
     nome: "Sérgio Segaty",
-    saldo: 2000.70,
-    bloqueado: 739.70,
+    saldo: 2000.7,
+    bloqueado: 739.7,
     novaTransacao: {
       nome: "",
       cpf: "",
@@ -46,7 +46,6 @@ const initialState = {
         id: "4",
       },
     ],
-    
   },
 };
 //#endregion Estado Inicial
@@ -58,21 +57,17 @@ export default function transacao(state = initialState, action) {
     case "pagamento/falha":
       break;
     case "transacao/sucedida":
-    let saldoNovo = state.user.saldo;
-    console.log(action.item.valor);
-    saldoNovo += parseFloat(action.item.valor).toFixed(2);
-    // return {
-    //   ...state,
-    //   user: {
-    //     ...state.user,
-    //     saldo: saldoNovo
-    //   }
-    // }
-    return state;
-    break;
+      let saldoNovo = state.user.saldo;
+      saldoNovo = saldoNovo + action.item.valor;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          saldo: saldoNovo,
+        },
+      };
     case "transacao/failed":
       break;
-    
     case "transacao/novaTransacao/favorecido":
       return {
         ...state,
@@ -97,7 +92,7 @@ export default function transacao(state = initialState, action) {
           hora: action.item.hora,
         },
       };
-    
+
     default:
       return state;
   }

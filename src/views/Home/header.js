@@ -7,8 +7,7 @@ const Container = styled.View`
   width: 100%;
   height: 60px;
   flex-direction: row;
-  justify-content: flex-start;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 25px;
   align-items: center;
 `;
@@ -23,27 +22,20 @@ const ProfileName = styled.Text`
   color: #95c285;
   font-weight: bold;
   font-size: 20px;
-  margin-left: -55px;
 `;
-
 
 function Header(props) {
   return (
     <Container>
-      <Avatar />
-      <View>
-        <ProfileName>{props.usuario.nome}</ProfileName>
-      </View>
-      <View></View>
+      <ProfileName>{props.usuario.nome}</ProfileName>
     </Container>
   );
 }
 
-
-const mapStateToProps= (state) => {
-  	return {
-      usuario: state.transacao.user
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    usuario: state.transacao.user,
+  };
+};
 
 export default connect(mapStateToProps)(Header);

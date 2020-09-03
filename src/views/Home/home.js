@@ -31,10 +31,12 @@ function Home(props) {
         <CardCarousel />
         <Saldo />
         <UnderLine />
-        <ContactCarousel
-          // contatos={props.user.contatos}
-          onPressCallback={(cpf) => _handleClickPerfil(props, cpf)}
-        />
+        {props.contatos.length > 0 &&
+          <ContactCarousel
+            // contatos={props.user.contatos}
+            onPressCallback={(cpf) => _handleClickPerfil(props, cpf)}
+          />
+        }
         <DirectionButtons
           onPressCallback={(route) => props.navigation.navigate(route)}
         />
