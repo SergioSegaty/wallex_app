@@ -46,7 +46,7 @@ const MainContainer = styled.View`
 
 const BtnText = styled.Text`
   color: #95c285;
-  font-size: 23px;
+  font-size: 18px;
 `;
 
 function DirectionButtons(props) {

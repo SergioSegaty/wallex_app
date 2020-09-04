@@ -151,6 +151,7 @@ function Pagamento(props) {
               mask: "99999.99999 99999.99999 99999.99999 9 99999999999999",
             }}
             value={codigoBarras}
+            keyboardType={'decimal-pad'}
             onChangeText={(text) => {
               setCodigoBarras(text);
             }}
