@@ -100,7 +100,6 @@ const share = async (msg, props) => {
 };
 
 const _handleCompartilhar = (pagamento) => {
-  console.log("Pagamento:");
   return `
 Pagamento completo. 
   
