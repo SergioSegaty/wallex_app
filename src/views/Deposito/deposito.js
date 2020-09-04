@@ -91,6 +91,10 @@ function Deposito(props) {
   const [valor, setValor] = useState("");
   let moneyMask;
 
+  /**
+   * Takes the props, create a new object to dispatch and calls the router navigation.
+   * @param {any} props 
+   */
   const _handleConfirma = (props) => {
     let today = Date.now();
 

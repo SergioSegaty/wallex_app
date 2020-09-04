@@ -48,6 +48,12 @@ const BtnFechar = styled.TouchableHighlight`
   align-items: center;
 `;
 
+/**
+ * Takes the param to know which case it is, and props to call the fuction from its parent.
+ * Returns the parameters to set the Filter in ExtratoBox.
+ * @param {string} param 
+ * @param {any} props 
+ */
 const _handleCLick = (param, props) => {
   let today = new Date();
   let multiDias = 1000 * 60 * 60 * 24;

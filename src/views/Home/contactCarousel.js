@@ -14,7 +14,7 @@ const Title = styled.Text`
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
-  margin-left: -5px;
+  margin-left: -7px;
 `;
 
 const ProfileContainer = styled.View`

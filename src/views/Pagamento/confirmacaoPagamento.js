@@ -78,6 +78,11 @@ const _handleFinalizar = (props) => {
   
 };
 
+/**
+ * Takes the props and a message. Uses the React Native Share.
+ * @param {string} msg 
+ * @param {any} props 
+ */
 const share = async (msg, props) => {
   try {
     const result = await Share.share({
@@ -85,13 +90,10 @@ const share = async (msg, props) => {
     });
     if (result.action === Share.sharedAction) {
       if (result.activityType) {
-        // shared with activity type of result.activityType
       } else {
-        // shared
         props.navigation.navigate("Home");
       }
     } else if (result.action === Share.dismissedAction) {
-      // dismissed
       props.navigation.navigate("Home");
     }
   } catch (error) {
@@ -99,6 +101,10 @@ const share = async (msg, props) => {
   }
 };
 
+/**
+ * Makes the message to use with Share.
+ * @param {any} pagamento 
+ */
 const _handleCompartilhar = (pagamento) => {
   return `
 Pagamento completo. 

@@ -1,11 +1,11 @@
 //#region Estado Inicial
 const initialState = {
   user: {
-    login: "sergiosj",
+    login: "user012",
     senha: "senha123",
-    nome: "Sérgio Segaty",
+    nome: "Cliente",
     saldo: 510.7,
-    bloqueado: 739.7,
+    bloqueado: 139.7,
     novoPagamento: {
       banco: "",
       vencimento: "",

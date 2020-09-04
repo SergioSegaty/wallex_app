@@ -76,6 +76,11 @@ const BtnTrasnferencia = styled.TouchableHighlight`
   border-width: 2px;
 `;
 
+/**
+ * Validates the data object with the Personal Data.
+ * @returns {{errors: String,  valid: Boolean}}
+ * @param {any} dados
+ */
 const _validaDados = (dados) => {
   let mensagens = "";
   let valid = false;
@@ -102,6 +107,11 @@ const _validaDados = (dados) => {
   return { errors: mensagens, valid: valid };
 };
 
+/**
+ * Handles the Button click, calls the Validator, sees if it's valid,
+ * if not, displays with an Alert the Errors.
+ * @param {any} props
+ */
 function DadosPessoais(props) {
   const _handleDados = () => {
     let dados = {
@@ -128,20 +138,33 @@ function DadosPessoais(props) {
   const [numeroConta, setNumeroConta] = useState("");
   const [cleanCPF, setCleanCPF] = useState("");
 
+  let inputCPF;
+  let inputAgencia;
+  let inputTipoConta;
+  let inputNumeroConta;
+
   return (
     <BG>
-        <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()} />
       <FormularioContainer>
         <Title> Dados Pessoais </Title>
 
         <StyledLabel>Nome</StyledLabel>
-        <StyledInput onChangeText={(text) => setNome(text)} value={nome} />
+        <StyledInput
+          onChangeText={(text) => setNome(text)}
+          onSubmitEditing={() => inputCPF.getElement().focus()}
+          value={nome}
+        />
 
         <StyledLabel>CPF</StyledLabel>
         <TextInputMask
           style={styles.cpfInput}
           type={"cpf"}
           value={CPF}
+          ref={(ref) => {
+            inputCPF = ref;
+          }}
+          onSubmitEditing={() => inputAgencia.focus()}
           includeRawValueInChangeText={true}
           onChangeText={(maskedText, rawText) => {
             setCPF(maskedText);
@@ -153,21 +176,27 @@ function DadosPessoais(props) {
         <StyledInput
           onChangeText={(text) => setAgencia(text)}
           value={agencia}
+          onSubmitEditing={() => inputTipoConta.focus()}
+          ref={(ref) => (inputAgencia = ref)}
         />
 
         <ContaView>
           <View style={{ marginRight: 30, alignItems: "center" }}>
             <StyledLabel>Tipo de Conta</StyledLabel>
             <StyledInput
+              ref={(ref) => (inputTipoConta = ref)}
               onChangeText={(text) => setTipoConta(text)}
               value={tipoConta}
+              onSubmitEditing={() => inputNumeroConta.focus()}
             />
           </View>
           <View style={{ alignItems: "center" }}>
             <StyledLabel>Numero da Conta</StyledLabel>
             <StyledInput
+              ref={(ref) => (inputNumeroConta = ref)}
               onChangeText={(text) => setNumeroConta(text)}
               value={numeroConta}
+              onSubmitEditing={() => _handleDados()}
             />
           </View>
         </ContaView>

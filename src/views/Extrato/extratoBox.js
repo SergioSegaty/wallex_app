@@ -118,11 +118,22 @@ function ExtratoBox(props) {
     return mesPt.portuguese;
   };
 
+  /**
+   * Sets the filter with the Data and the FilterText to Message.
+   * 
+   * @param {Date} data 
+   * @param {string} msg 
+   */
   const _handleFiltro = (data, msg) => {
     setBuscaLabel(msg);
     setFiltro(data);
   };
 
+
+  /**
+   * Takes a date and filters the array Extrato.
+   * @param {Date} dataInicio 
+   */
   const filterExtrato = (dataInicio = undefined) => {
     let listaFiltrada = [];
 
@@ -154,7 +165,7 @@ function ExtratoBox(props) {
           underlayColor="rgba(160, 205, 208,0.4)"
           onPress={() => setModalVis(true)}
         >
-          <BtnText>Editar</BtnText>
+          <BtnText>Filtrar</BtnText>
         </BtnDatePicker>
         {buscaLabel && (
           <View

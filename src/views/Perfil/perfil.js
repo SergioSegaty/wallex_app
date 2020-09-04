@@ -33,6 +33,10 @@ const ProfilePicture = styled.Image`
   align-self: center;
 `;
 
+/**
+ * Makes a Dispatch and Routes to the next Screen
+ * @param {any} props 
+ */
 const _handleNovaTransf = (props) => {
   props.dispatch({
     type: "transacao/novaTransacao/favorecido",

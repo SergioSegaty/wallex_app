@@ -16,6 +16,12 @@ const UnderLine = styled.View`
   margin: 5px;
 `;
 
+/**
+ * Takes the document: CPF from the contact and redirects
+ * to a new View with that person's information.
+ * @param {any} props 
+ * @param {string} cpf 
+ */
 const _handleClickPerfil = (props, cpf) => {
   let contatoAlvo = props.contatos.filter(x => x.cpf === cpf);
   props.dispatch({type: 'perfil/selecao', item: contatoAlvo[0]});
@@ -33,7 +39,6 @@ function Home(props) {
         <UnderLine />
         {props.contatos.length > 0 &&
           <ContactCarousel
-            // contatos={props.user.contatos}
             onPressCallback={(cpf) => _handleClickPerfil(props, cpf)}
           />
         }

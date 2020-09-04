@@ -26,7 +26,7 @@ const Data = styled.Text`
 `;
 const Title = styled.Text`
   align-self: flex-start;
-  font-size: 24px;
+  font-size: 20px;
   margin-left: 10px;
 `;
 

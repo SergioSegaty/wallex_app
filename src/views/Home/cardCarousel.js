@@ -8,6 +8,7 @@ const CardBox = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-left: -3px;
 `;
 
 const CardImage = styled.Image`

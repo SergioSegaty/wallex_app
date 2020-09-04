@@ -86,6 +86,13 @@ const BtnFinalizar = styled.TouchableHighlight`
   margin-top: 20px;
 `;
 
+/**
+ * Takes a BarCode and Props, cleans the barcodes from spaces and sends it to another function
+ * that extract the data from it.
+ * Then it dispatches the action and routes the user to confirmation.
+ * @param {any} props 
+ * @param {string} codigoBarras 
+ */
 const _handleFinalizar = (props, codigoBarras) => {
   let dados;
   codigoBarras = codigoBarras.replace(/ /g, "");
@@ -114,7 +121,6 @@ const _handleFinalizar = (props, codigoBarras) => {
   dados.boleto = boleto;
 
   props.dispatch({ type: "pagamento/novo", item: dados });
-  //props.dispatch({ type: "pagamento/sucesso", item: dados});
   props.navigation.navigate("ConfirmacaoPagamento");
 };
 
@@ -126,29 +132,11 @@ function Pagamento(props) {
       <MainContainer>
         <Title>Pagamento de Contas</Title>
         <View style={{ width: "80%", alignItems: "center" }}>
-          {/* <Btn>
-            <View style={{ alignItems: "center" }}>
-              <BtnText>Ler código de barras</BtnText>
-              <FontAwesomeIcon
-                icon={faCamera}
-                size={35}
-                style={{ marginTop: 10 }}
-              />
-            </View>
-          </Btn> */}
           <StyledLabel>Ou digite o código de barras</StyledLabel>
           <TextInputMask
             type={"custom"}
             options={{
-              /**
-               * mask: (String | required | default '')
-               * the mask pattern
-               * 9 - accept digit.
-               * A - accept alpha.
-               * S - accept alphanumeric.
-               * * - accept all, EXCEPT white space.
-               */
-              mask: "99999.99999 99999.99999 99999.99999 9 99999999999999",
+              mask: "99999.99999 99999.999999 99999.999999 9 99999999999999",
             }}
             value={codigoBarras}
             keyboardType={'decimal-pad'}

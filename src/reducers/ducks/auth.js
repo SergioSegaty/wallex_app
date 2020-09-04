@@ -1,7 +1,7 @@
 const initialState = {
   user: {
-    login: "sergiosj",
-    senha: "senha123",
+    login: "user012",
+    senha: "12345",
   },
 };
 

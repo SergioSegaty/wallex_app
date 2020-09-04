@@ -76,6 +76,12 @@ const Title = styled.Text`
   color: white;
 `;
 
+/**
+ * Takes the transaction creates a new contact and sends it to Redux.
+ * If it is a new contact, it's added to the contact's list. If it's not, it's only updated.
+ * @param {any} props 
+ * @param {any} transacao 
+ */
 const _handleFinalizar = (props, transacao) => {
   let contato = {
     nome: transacao.nome,
