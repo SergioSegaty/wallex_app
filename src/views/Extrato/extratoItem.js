@@ -30,20 +30,29 @@ const Title = styled.Text`
   margin-left: 10px;
 `;
 
-const Valor = styled.Text`
+const ValorNegativo = styled.Text`
   color: #c72222;
   font-size: 20px;
 `;
 
-function ExtratoItem({item}) {
+const ValorPositivo = styled.Text`
+  color: #0a3d09;
+  font-size: 20px;
+`;
+
+function ExtratoItem({ item }) {
   return (
     <ExtratoI>
       <SubContainer>
         <Title>{item.title}</Title>
         <Documento>Documento: {item.documento}</Documento>
       </SubContainer>
-      <SubContainer style={{marginRight: 10}}>
-        <Valor>{item.valor}</Valor>
+      <SubContainer style={{ marginRight: 10 }}>
+        {item.ehDeposito ? (
+          <ValorPositivo>+{item.valor}</ValorPositivo>
+        ) : (
+          <ValorNegativo>{item.valor}</ValorNegativo>
+        )}
         <Data>{item.data}</Data>
       </SubContainer>
     </ExtratoI>

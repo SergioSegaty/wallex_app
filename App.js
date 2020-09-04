@@ -10,13 +10,14 @@ import DadosPessoais from "./src/views/Transacoes/dadosPessoais";
 import Confirmacao from "./src/views/Transacoes/confirmacao";
 import Pagamento from "./src/views/Pagamento/pagamento";
 import PagamentoFinalizado from "./src/views/Pagamento/pagamentoFinalizado";
+import AvatarPicker from './src/components/imagePicker'
+import confirmacaoPagamento from "./src/views/Pagamento/confirmacaoPagamento";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./src/reducers/reducer";
-import AvatarPicker from './src/components/imagePicker'
-import confirmacaoPagamento from "./src/views/Pagamento/confirmacaoPagamento";
+import Deposito from "./src/views/Deposito/deposito";
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer);
@@ -37,8 +38,9 @@ export default function App() {
             <Stack.Screen name="Perfil" component={Perfil} />
             <Stack.Screen name="Confirmacao" component={Confirmacao} />
             <Stack.Screen name="Finalizado" component={PagamentoFinalizado} />
-            <Stack.Screen name="ImgPicker" component={AvatarPicker}/>
             <Stack.Screen name="ConfirmacaoPagamento" component={confirmacaoPagamento}/>
+            <Stack.Screen name="ImgPicker" component={AvatarPicker}/>
+            <Stack.Screen name="Deposito" component={Deposito}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

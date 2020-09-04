@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Share } from "react-native";
+import { Text, View, Share, Alert } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -41,6 +41,7 @@ const MainContainer = styled.View`
   justify-content: flex-start;
   width: 75%;
 `;
+
 let props = {
   pagamento: {
     valor: 23.0,
@@ -68,51 +69,69 @@ const Btn = styled.TouchableHighlight`
 `;
 
 const _handleFinalizar = (props) => {
-  // Dispatches
-  props.navigation.navigate("Home");
+  let msg = _handleCompartilhar(props.pagamento);
+  props.dispatch({ type: "pagamento/sucesso", item: props.pagamento });
+  Alert.alert("Deposito Finalizado", msg, [{ text: "Compartilhar", onPress: () => share(msg, props)},
+    { text: "Ok", onPress: () => props.navigation.navigate('Home')}
+  ]);
+  
+};
+
+const share = async (msg, props) => {
+  try {
+    const result = await Share.share({
+      message: msg,
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+        props.navigation.navigate("Home");
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+      props.navigation.navigate("Home");
+    }
+  } catch (error) {
+    alert(error.message);
+  }
 };
 
 const _handleCompartilhar = (pagamento) => {
-  let msg = `
+  console.log("Pagamento:");
+  return `
   Pagamento completo. 
   
   Banco: ${pagamento.banco}
-  Data: ${pagamento.data}
-  Valor: ${pagamento.valor}
+  Data: ${pagamento.vencimento}
+  Valor: R$ ${pagamento.valor}
   
   Muito obrigado por usar o Wall-Ex
-  `
-  Share.share(msg);
-}
+  `;
+};
 
-function confirmacaoPagamento() {
+function confirmacaoPagamento(props) {
   return (
     <BG>
       <Title>Confirmação Pagamento</Title>
       <MainContainer>
         <StyledLabel>
-          Valor: <StyledOutput>{props.pagamento.valor}</StyledOutput>
+          Valor: <StyledOutput>R$ {props.pagamento.valor}</StyledOutput>
         </StyledLabel>
         <StyledLabel>
-          Data: <StyledOutput>DATA</StyledOutput>
+          Data: <StyledOutput>{props.pagamento.vencimento}</StyledOutput>
         </StyledLabel>
         <StyledLabel>
-          Banco: <StyledOutput>BANCO</StyledOutput>
+          Banco: <StyledOutput>{props.pagamento.banco}</StyledOutput>
         </StyledLabel>
       </MainContainer>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: "row" }}>
         <Btn
           underlayColor="rgba(255,255,255,0.4)"
-          onPress={() => _handleFinalizar(props, pagamento)}
+          onPress={() => _handleFinalizar(props, props.pagamento)}
         >
           <BtnText>Finalizar</BtnText>
-        </Btn>
-
-        <Btn
-        underlayColor="rgba(255,255,255,0.4)"
-          onPress={() => _handleCompartilhar(props, pagamento)}
-        >
-          <BtnText>Compartilhar</BtnText>
         </Btn>
       </View>
     </BG>

@@ -63,8 +63,8 @@ function DirectionButtons(props) {
         </BtnExtrato>
 
         <BtnPagamento
-        underlayColor="rgba(149, 194, 133, 0.3)"
-        onPress={() => props.onPressCallback("Pagamento")}
+          underlayColor="rgba(149, 194, 133, 0.3)"
+          onPress={() => props.onPressCallback("Pagamento")}
         >
           <BtnBox>
             <BtnText>Pagamento</BtnText>
@@ -74,11 +74,19 @@ function DirectionButtons(props) {
 
       <MainContainer>
         <BtnTransf
-        underlayColor="rgba(149, 194, 133, 0.3)"
-        onPress={() => props.onPressCallback("Dados")}
+          underlayColor="rgba(149, 194, 133, 0.3)"
+          onPress={() => props.onPressCallback("Dados")}
         >
           <BtnBox>
             <BtnText>Transferencia</BtnText>
+          </BtnBox>
+        </BtnTransf>
+        <BtnTransf
+          underlayColor="rgba(149, 194, 133, 0.3)"
+          onPress={() => props.onPressCallback("Deposito")}
+        >
+          <BtnBox>
+            <BtnText>Deposito</BtnText>
           </BtnBox>
         </BtnTransf>
       </MainContainer>

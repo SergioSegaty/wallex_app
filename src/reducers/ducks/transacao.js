@@ -28,6 +28,7 @@ const initialState = {
         valor: "-15,60",
         data: "22/08/2020",
         id: "1",
+        ehDeposito: false,
       },
       {
         title: "Burger King",
@@ -35,6 +36,7 @@ const initialState = {
         valor: "-23,40",
         data: "12/08/2020",
         id: "2",
+        ehDeposito: false,
       },
       {
         title: "Riachuello",
@@ -42,6 +44,7 @@ const initialState = {
         valor: "-73,50",
         data: "11/08/2020",
         id: "3",
+        ehDeposito: false,
       },
       {
         title: "Emporio da Saúde",
@@ -49,6 +52,7 @@ const initialState = {
         valor: "-60,40",
         data: "19/07/2020",
         id: "4",
+        ehDeposito: false,
       },
     ],
   },
@@ -56,13 +60,54 @@ const initialState = {
 //#endregion Estado Inicial
 
 export default function transacao(state = initialState, action) {
+  let saldoNovo;
+  let novoExtrato;
+
   switch (action.type) {
-    case "pagamento/sucedida":
-      break;
+    case "deposito/sucesso":
+      saldoNovo = state.user.saldo;
+      saldoNovo += action.item.valorClean;
+      action.item.id = (state.user.extrato.length + 1).toString();
+      novoExtrato = [...state.user.extrato];
+      novoExtrato.unshift(action.item);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          saldo: saldoNovo,
+          extrato: novoExtrato,
+        },
+      };
+    case "pagamento/novo":
+    let pagamento = action.item;
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        novoPagamento: pagamento
+      }
+    }
+    case "pagamento/sucesso":
+      let descontoPagamento = parseFloat(
+        action.item.valor.replace(",", ".")
+      ).toFixed(2);
+      saldoNovo = state.user.saldo - descontoPagamento;
+      novoExtrato = [...state.user.extrato];
+      action.item.boleto.id = (novoExtrato.length + 1).toString();
+      console.log(action.item.boleto);
+      novoExtrato.unshift(action.item.boleto);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          saldo: saldoNovo,
+          extrato: novoExtrato,
+        },
+      };
     case "pagamento/falha":
       break;
     case "transacao/sucedida":
-      let saldoNovo = state.user.saldo;
+      saldoNovo = state.user.saldo;
       saldoNovo = saldoNovo + action.item.valor;
       return {
         ...state,

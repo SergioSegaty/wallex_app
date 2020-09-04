@@ -1,9 +1,36 @@
 import React, { Component, useState } from "react";
-import { Text, View, Alert } from "react-native";
+import { Text, View, Alert, StyleSheet } from "react-native";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import ArrowVoltar from "../../components/arrowVoltar";
+import dadosFromBoleto from "../../js/dadosFromBoleto";
+import { TextInputMask } from "react-native-masked-text";
+import { connect } from "react-redux";
+import Moment from "moment";
+
+const styles = StyleSheet.create({
+  codigoBarras: {
+    width: "100%",
+    height: 45,
+    backgroundColor: "rgba(246, 240, 240, 0.7)",
+    borderRadius: 6,
+    margin: 10,
+    padding: 10,
+    fontSize: 17,
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+});
+
+const InputCodigo = styled.TextInput`
+  width: 70%;
+  height: 45px;
+  background-color: rgba(246, 240, 240, 0.7);
+  border-radius: 6px;
+  margin: 10px;
+  padding: 10px;
+`;
 
 const PagamentoBackground = styled.View`
   background-color: #95c285;
@@ -41,15 +68,6 @@ const Btn = styled.TouchableHighlight`
   border-width: 2px;
 `;
 
-const InputCodigo = styled.TextInput`
-  width: 70%;
-  height: 45px;
-  background-color: rgba(246, 240, 240, 0.7);
-  border-radius: 6px;
-  margin: 10px;
-  padding: 10px;
-`;
-
 const BtnText = styled.Text`
   font-size: 20px;
   font-weight: bold;
@@ -65,37 +83,50 @@ const BtnFinalizar = styled.TouchableHighlight`
   border-color: white;
   border-width: 2px;
   margin-bottom: 15px;
-`;
-
-const ButtonContainer = styled.View`
-  margin: 10px;
-  margin-top: 25px;
-  flex-direction: row;
-  align-self: center;
-  justify-content: space-evenly;
-  width: 100%;
+  margin-top: 20px;
 `;
 
 const _handleFinalizar = (props, codigoBarras) => {
+  let dados;
+  codigoBarras = codigoBarras.replace(/ /g, "");
   if (codigoBarras.length < 10) {
     Alert.alert("Falha ao Finalizar", "Codigo de Barras não é valido", [
       { text: "Ok" },
     ]);
     return;
   }
+  try {
+    dados = dadosFromBoleto(codigoBarras);
+  } catch (e) {
+    console.log(e);
+  }
 
+  let today = Date.now();
+
+  let boleto = {
+    title: "Pagamento Boleto",
+    documento: "817 - " + dados.banco,
+    valor: `-${dados.valor}`,
+    data: Moment(today).format("DD/MM/YYYY"),
+    ehDeposito: false,
+  };
+
+  dados.boleto = boleto;
+
+  props.dispatch({ type: "pagamento/novo", item: dados});
+  //props.dispatch({ type: "pagamento/sucesso", item: dados});
   props.navigation.navigate("ConfirmacaoPagamento");
 };
 
-export default function Pagamento(props) {
+function Pagamento(props) {
   const [codigoBarras, setCodigoBarras] = useState("");
   return (
     <PagamentoBackground>
-      <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()} />
       <MainContainer>
         <Title>Pagamento de Contas</Title>
-        <View>
-          <Btn>
+        <View style={{ width: "80%", alignItems: "center" }}>
+          {/* <Btn>
             <View style={{ alignItems: "center" }}>
               <BtnText>Ler código de barras</BtnText>
               <FontAwesomeIcon
@@ -104,16 +135,27 @@ export default function Pagamento(props) {
                 style={{ marginTop: 10 }}
               />
             </View>
-          </Btn>
-          <Btn>
-            <View style={{ alignItems: "center" }}>
-              <StyledLabel>Ou digite o código de barras</StyledLabel>
-              <InputCodigo
-                onChangeText={(text) => setCodigoBarras(text)}
-                value={codigoBarras}
-              />
-            </View>
-          </Btn>
+          </Btn> */}
+          <StyledLabel>Ou digite o código de barras</StyledLabel>
+          <TextInputMask
+            type={"custom"}
+            options={{
+              /**
+               * mask: (String | required | default '')
+               * the mask pattern
+               * 9 - accept digit.
+               * A - accept alpha.
+               * S - accept alphanumeric.
+               * * - accept all, EXCEPT white space.
+               */
+              mask: "99999.99999 99999.99999 99999.99999 9 99999999999999",
+            }}
+            value={codigoBarras}
+            onChangeText={(text) => {
+              setCodigoBarras(text);
+            }}
+            style={styles.codigoBarras}
+          />
         </View>
         <BtnFinalizar
           underlayColor="rgba(255,255,255,0.4)"
@@ -125,3 +167,5 @@ export default function Pagamento(props) {
     </PagamentoBackground>
   );
 }
+
+export default connect()(Pagamento);
