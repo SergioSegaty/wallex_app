@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, View, Share, Alert } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import ArrowVoltar from "../../components/arrowVoltar";
 
 const BG = styled.View`
   background-color: #95c285;
@@ -114,6 +115,7 @@ const _handleCompartilhar = (pagamento) => {
 function confirmacaoPagamento(props) {
   return (
     <BG>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
       <Title>Confirmação Pagamento</Title>
       <MainContainer>
         <StyledLabel>

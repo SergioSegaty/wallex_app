@@ -4,7 +4,7 @@ const initialState = {
     login: "sergiosj",
     senha: "senha123",
     nome: "Sérgio Segaty",
-    saldo: 2000.7,
+    saldo: 510.7,
     bloqueado: 739.7,
     novoPagamento: {
       banco: "",
@@ -94,7 +94,6 @@ export default function transacao(state = initialState, action) {
       saldoNovo = state.user.saldo - descontoPagamento;
       novoExtrato = [...state.user.extrato];
       action.item.boleto.id = (novoExtrato.length + 1).toString();
-      console.log(action.item.boleto);
       novoExtrato.unshift(action.item.boleto);
       return {
         ...state,

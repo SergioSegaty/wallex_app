@@ -98,7 +98,7 @@ const _handleFinalizar = (props, codigoBarras) => {
   try {
     dados = dadosFromBoleto(codigoBarras);
   } catch (e) {
-    console.log(e);
+    throw e;
   }
 
   let today = Date.now();
@@ -113,7 +113,7 @@ const _handleFinalizar = (props, codigoBarras) => {
 
   dados.boleto = boleto;
 
-  props.dispatch({ type: "pagamento/novo", item: dados});
+  props.dispatch({ type: "pagamento/novo", item: dados });
   //props.dispatch({ type: "pagamento/sucesso", item: dados});
   props.navigation.navigate("ConfirmacaoPagamento");
 };

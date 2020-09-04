@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
 import Moment from "moment";
+import ArrowVoltar from "../../components/arrowVoltar";
 
 const styles = StyleSheet.create({
   maskedInput: {
@@ -111,6 +112,7 @@ function Deposito(props) {
 
   return (
     <DepositoBG>
+      <ArrowVoltar navigateBack={() => props.navigation.pop()}/>
       <Title>Deposito</Title>
       <MainContainer>
         <StyledLabel>Valor</StyledLabel>
