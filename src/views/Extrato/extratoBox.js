@@ -131,8 +131,10 @@ function ExtratoBox(props) {
     } else {
       let fromRange = dataInicio.getTime();
       listaFiltrada = [...props.extrato].filter(
-        (e) => new Date(formatDate(e.data)).getTime() >= fromRange
+        (e) => new Date(formatDate(e.data)).getTime() > fromRange
       );
+      console.log("\n\n Lista Filtrada:");
+      console.log(listaFiltrada);
     }
     return listaFiltrada;
   };
@@ -148,16 +150,23 @@ function ExtratoBox(props) {
       <UnderLine />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Mes>{esteMes()}</Mes>
-        <BtnDatePicker 
-        underlayColor='rgba(160, 205, 208,0.4)'
-        onPress={() => setModalVis(true)}>
+        <BtnDatePicker
+          underlayColor="rgba(160, 205, 208,0.4)"
+          onPress={() => setModalVis(true)}
+        >
           <BtnText>Editar</BtnText>
         </BtnDatePicker>
         {buscaLabel && (
-          <View style={{flexDirection: 'row', alignItems: 'center' , justifyContent: 'center'}}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Filtro>{buscaLabel}</Filtro>
             <BtnDatePicker
-              underlayColor='rgba(160, 205, 208,0.4)'
+              underlayColor="rgba(160, 205, 208,0.4)"
               onPress={() => {
                 setBuscaLabel(undefined);
                 setFiltro(undefined);
@@ -169,7 +178,7 @@ function ExtratoBox(props) {
         )}
       </View>
       <View>
-        {filterExtrato(filtro).length > 1 ? (
+        {filterExtrato(filtro).length >= 1 ? (
           <FlatList
             contentContainerStyle={{
               paddingBottom: 500,

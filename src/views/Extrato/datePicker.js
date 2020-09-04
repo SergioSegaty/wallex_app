@@ -75,7 +75,7 @@ const _handleCLick = (param, props) => {
     case "twoMonth":
       let mesPassado = new Date(`${today.getMonth()}/01/${today.getFullYear()}`)
       valor = (new Date(mesPassado));
-      props.setFiltro(valor, 'Mês passado');
+      props.setFiltro(valor, 'Mês passado até hoje');
       props.onCallBack();
       break;
     default:

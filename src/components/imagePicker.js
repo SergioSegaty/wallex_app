@@ -83,7 +83,7 @@ class AvatarPicker extends React.Component {
         this.updateState(perfilAtualizado);
       }
     } catch (E) {
-      console.log(E);
+      throw E;
     }
   };
 }
