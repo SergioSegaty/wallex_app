@@ -49,29 +49,33 @@ const BtnFechar = styled.TouchableHighlight`
 `;
 
 const _handleCLick = (param, props) => {
-  let today = Date.now();
+  let today = new Date();
   let multiDias = 1000 * 60 * 60 * 24;
   let valor;
 
   switch (param) {
     case "oneWeek":
       valor = today - (multiDias * 7);
-      props.setFiltro(valor);
+      valor = new Date(valor);
+      props.setFiltro(valor, 'Esta semana');
       props.onCallBack();
       break;
     case "twoWeek":
       valor = today - (multiDias * 15);
-      props.setFiltro(valor);
+      valor = new Date(valor);
+      props.setFiltro(valor, 'Ultimos 15 dias');
       props.onCallBack();
       break;
     case "oneMonth":
-      valor = (new Date(today).getMonth() + 1);
-      props.setFiltro(valor);
+      let esseMes = new Date(`${today.getMonth() + 1}/01/${today.getFullYear()}`)
+      valor = (new Date(esseMes));
+      props.setFiltro(valor, 'Este Mês');
       props.onCallBack();
       break;
     case "twoMonth":
-      valor = (new Date(today).getMonth());
-      props.setFiltro(valor);
+      let mesPassado = new Date(`${today.getMonth()}/01/${today.getFullYear()}`)
+      valor = (new Date(mesPassado));
+      props.setFiltro(valor, 'Mês passado');
       props.onCallBack();
       break;
     default:
@@ -84,7 +88,7 @@ export default function DatePicker(props) {
     <View style={{ flex: 1, heigh: "100%", width: "100%" }}>
       <Modal visible={props.visible}>
         <BG>
-          <Title>Escolhe um Periodo</Title>
+          <Title>Escolha um Periodo</Title>
           <Row>
             <Btn
               underlayColor="rgba(255,255,255,0.4)"

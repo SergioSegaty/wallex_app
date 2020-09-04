@@ -102,14 +102,14 @@ const share = async (msg, props) => {
 const _handleCompartilhar = (pagamento) => {
   console.log("Pagamento:");
   return `
-  Pagamento completo. 
+Pagamento completo. 
   
-  Banco: ${pagamento.banco}
-  Data: ${pagamento.vencimento}
-  Valor: R$ ${pagamento.valor}
+Banco: ${pagamento.banco}
+Data: ${pagamento.vencimento}
+Valor: R$ ${pagamento.valor}
   
-  Muito obrigado por usar o Wall-Ex
-  `;
+Muito obrigado por usar o Wall-Ex
+`;
 };
 
 function confirmacaoPagamento(props) {
